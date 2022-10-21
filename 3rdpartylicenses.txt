@@ -58,6 +58,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 All contributions to this project will be released under the MIT license. By submitting a pull request, you are agreeing to comply with this waiver of copyright interest.
 
 ngfds
+MIT
 
 rxjs
 Apache-2.0
