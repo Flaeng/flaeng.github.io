@@ -1,0 +1,43 @@
+{% from "components/icons/icons--svg.njk" import icon_svg as icon_svg %}
+<div class="container">
+{% macro accordion(params) %}
+{% set bulk = params.openCloseButton | default(false) %}
+{% set multiselectable = params.multiselectable | default(true) %}
+{% if bulk %}<button class="accordion-bulk-button" data-accordion-bulk-expand="true">Åbn alle</button>{% endif %}
+<ul class="accordion{% if multiselectable %} accordion-multiselectable{% endif %}">
+  {%- for item in params.items -%}
+  <li>
+    {%- if params.headingLevel !== false -%}
+    <{{params.headingLevel | default('h3') }}>
+    {%- endif -%}
+    <button class="accordion-button{% if item.errorMessage %} accordion-error {% endif %}" aria-expanded="{{ item.expanded | default('false') }}" {% if item.errorMessage %} aria-describedby="{{ params.idPrefix }}{{ item.id }}" {% endif %} aria-controls="{{ params.idPrefix }}{{ item.id }}">
+      {{ item.title }}
+      {%- if item.icon %}
+        <span class="accordion-icon">
+          <span class="icon_text">{{ item.icontext }}</span>  {{ icon_svg({"name": item.icon})}}
+        </span>
+      {% endif -%}
+    </button>
+    {%-  if params.headingLevel !== false -%}
+    </{{params.headingLevel | default('h3') }}>
+    {%- endif -%}
+       {%- set ariahidden = "true" -%}
+      {%- if item.expanded %}
+        {% set ariahidden = "false" %}
+      {% else -%}
+        {% set ariahidden = "true" %}
+      {% endif -%}
+    <div id="{{ params.idPrefix }}{{ item.id }}"{% if ariahidden %}aria-hidden="{{ariahidden}}"{% endif %} class="accordion-content">
+    {%- if item.errorMessage %}
+      <div class="alert alert-error" role="alert">
+             <div class="alert-body">
+                 <p class="alert-text">{{item.errorMessage}}</p>
+             </div>
+         </div>
+     {% endif -%}
+      {{ item.content | safe }}
+    </div>
+  </li>
+  {%- endfor -%}
+</ul>
+{% endmacro %}

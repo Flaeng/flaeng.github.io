@@ -1,0 +1,4 @@
+{% macro spinner(params) %}
+<div class="spinner"></div>
+<div class="spinner-status" role="status">{{ params.status | default('Arbejder') }}</div>
+{% endmacro %}

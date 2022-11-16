@@ -1,0 +1,8 @@
+{% macro details(params) %}
+<details class="details">
+  <summary class="details-summary">{{ params.summary }}</summary>
+  <div class="details-text">
+      {{ params.content | safe }}
+  </div>
+</details>
+{% endmacro %}
